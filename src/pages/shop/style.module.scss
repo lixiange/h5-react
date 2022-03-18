@@ -1,0 +1,26 @@
+.main-banner{
+  width: 100%;
+  &>img{
+    width: 100%;
+    display: block;
+  }
+}
+.shop-wrapper{
+  display: block;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding:10px;
+  .sub-banner{
+    width: 100%;
+    padding:10px 0;
+    img{
+      width: 100%;
+      display: block;
+    }
+  }
+  &>div.product{
+    flex-basis: 50%;
+    padding:10px;
+  }
+}
