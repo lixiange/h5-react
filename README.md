@@ -48,7 +48,7 @@ http://tinyurl.com/tax86ub
 
 ### 微信授权
 静默授权封装了两种方式
-1、重定向到后端，后端在重定向到微信服务器。 `wechatAuthorization.jsx`
+1、重定向到后端，后端在重定向到微信服务器。 `wechatAuthorization.jsx`<br/>
 2、重定向到微信服务器，重定向地址为后端地址，后端通过code去微信服务器获取信息后将信息存在后端，然后将openid放在cookie中重定向到前端，前端请求接口是调用getOpenid方法，如果openid被清除就重新调用授权接口（少了一次重定向）
 
 ### 样式
