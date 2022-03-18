@@ -8,7 +8,7 @@ const config = {
   hashRouter: false,
   redirectMode: true,
   redirectQueryName: "path",
-  wechatAuthConfig: {
+  wechatAuthConfig: { //重定向地址为后台服务器时后台URL
     use: true,
     openidKey: "mpOpenId",
     api:

@@ -46,6 +46,11 @@ http://tinyurl.com/tax86ub
 5、可以通过指定页面地址上的path参数来判断初始渲染哪个页面，一般可以应用于微信分享，也可以用于多个子项目共用一个react项目的情况
 6、使用`react-app-rewired`对webpack进行扩展，扩展文件写在`config-overrides.js`中,vw配置在`postcss.config.js`中
 
+### 微信授权
+静默授权封装了两种方式
+1、重定向到后端，后端在重定向到微信服务器。 `wechatAuthorization.jsx`
+2、重定向到微信服务器，重定向地址为后端地址，后端通过code去微信服务器获取信息后将信息存在后端，然后将openid放在cookie中重定向到前端，前端请求接口是调用getOpenid方法，如果openid被清除就重新调用授权接口（少了一次重定向）
+
 ### 样式
 采用`scss` + `classNames`来实现，classNames可以动态修改样式名，为每一个文件的样式添加随机字符串，防止页面之间样式影响。<br/>
 static目录中封装了scss的@mixin混入，对于通用的css部分可以直接页面引入传值。减少css代码量

@@ -1,11 +1,13 @@
 import html2canvas from "html2canvas";
+import cookie from "react-cookies";
 import _merge from "loadsh/merge";
+import config from "../config";
 
 /**
  *
  * @param {string} name 地址栏参数名称
  */
-const GetQueryString = name => {
+const GetQueryString = (name) => {
   let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
   let r = window.location.search.substr(1).match(reg);
   if (r != null) return decodeURIComponent(r[2]);
@@ -23,12 +25,12 @@ const htmlToCanvas = (ele, customOpt) => {
   let opt = _merge({ scale: 3 }, customOpt);
   return new Promise((res, rej) => {
     html2canvas(ele, opt)
-      .then(canvas => {
+      .then((canvas) => {
         document.body.appendChild(canvas);
         let htmlImg = canvas.toDataURL("image/jpg");
         res(htmlImg);
       })
-      .catch(error => {
+      .catch((error) => {
         rej(error);
       });
   });
@@ -56,7 +58,7 @@ const clientSystem = () => {
       } else {
         return false;
       }
-    })()
+    })(),
   };
 };
 
@@ -110,7 +112,7 @@ const clientSize = () => {
      * 获取浏览器相对于桌面窗口左上角的距离
      */
     screenTop: window.screenTop || window.screenY,
-    screenLeft: window.screenLeft || window.screenX
+    screenLeft: window.screenLeft || window.screenX,
   };
 };
 
@@ -119,7 +121,7 @@ const clientSize = () => {
  * @param {function} 回调函数
  * @return: 无
  */
-const onScreenResize = callback => {
+const onScreenResize = (callback) => {
   let curClientHeight = clientSize().clientHeight;
   window.onresize = () => {
     let resizeHeight = clientSize().clientHeight;
@@ -134,10 +136,26 @@ const onScreenResize = callback => {
   };
 };
 
+/**
+ * @description: 获取存在cookie中的openid，如果没有就重新授权
+ * @param {}
+ * @return: openid
+ */
+const getOpenid = () => {
+  let openid = cookie.load("openid");
+  if (openid) {
+    return openid;
+  } else {
+    window.location.href = config.requestConfig.authorizationUrl;
+    return null;
+  }
+};
+
 export {
   GetQueryString,
   htmlToCanvas,
   clientSystem,
   clientSize,
-  onScreenResize
+  onScreenResize,
+  getOpenid,
 };
